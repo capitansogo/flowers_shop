@@ -9,3 +9,4 @@ class SuppliesForm(forms.ModelForm):
         model = Supplies
         fields = ['delivery_date', 'filial']
 
+
