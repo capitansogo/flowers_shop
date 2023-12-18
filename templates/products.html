@@ -1,0 +1,27 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for p in products %}
+                <div class="col-4">
+                    <div class="card mb-4 d-flex flex-fill">
+                        <img src="{{ p.photo.url }}" class="card-img-top" alt="{{ p.name }}"
+                             style="max-height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ p.name }}</h5>
+                            <h6 class="card-title">{{ p.type_product }}</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Стоимость: {{ p.cost }} руб.</li>
+                                <li class="list-group-item">Отстаток: {{ p.stock_balance }}</li>
+                                <li class="list-group-item">Срок годности: {{ p.sheif_life }} дней</li>
+                            </ul>
+                            <a href="#" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

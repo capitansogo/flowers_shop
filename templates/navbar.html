@@ -13,11 +13,23 @@
 <div class="container">
     <header class="d-flex justify-content-center py-3">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'products' %}" class="nav-link">Товары</a></li>
+            <li class="nav-item"><a href="{% url 'services' %}" class="nav-link">Услуги</a></li>
+            {% if request.user.role.name == 'Менеджер' and request.user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'filials' %}" class="nav-link">Филиалы</a></li>
+                <li class="nav-item"><a href="{% url 'sales' request.user.filial.id %}" class="nav-link">Продажи</a>
+                </li>
+                <li class="nav-item"><a href="{% url 'write_offs' request.user.filial.id %}"
+                                        class="nav-link">Списания</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Заказы</a>
+                </li>
+                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Выйти</a></li>
+            {% endif %}
+
+            {% if request.user.is_authenticated == False %}
+                <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Войти</a></li>
+            {% endif %}
         </ul>
     </header>
 </div>

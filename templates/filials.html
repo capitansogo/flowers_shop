@@ -1,0 +1,32 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Город</th>
+                <th scope="col">Улица</th>
+                <th scope="col">Дом</th>
+                <th scope="col">Email</th>
+                <th scope="col">Телефон</th>
+                <th scope="col">Менеджер</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for filial in filials %}
+                <tr>
+                    <th scope="row">{{ filial.id }}</th>
+                    <td>{{ filial.city }}</td>
+                    <td>{{ filial.street }}</td>
+                    <td>{{ filial.house }}</td>
+                    <td>{{ filial.email }}</td>
+                    <td>{{ filial.phone }}</td>
+                    <td>{{ user.filial }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

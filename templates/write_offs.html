@@ -1,0 +1,27 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Товар</th>
+                <th scope="col">Количество</th>
+                <th scope="col">Дата списания</th>
+                <th scope="col">Филиал</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for w in write_offs %}
+                <tr>
+                <th scope="row">{{ w.id }}</th>
+                <td>{{ w.product }}</td>
+                <td>{{ w.quantity }}</td>
+                <td>{{ w.date }}</td>
+                <td>{{ w.filial }}</td>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
