@@ -1,0 +1,21 @@
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Список поставок</title>
+</head>
+<body>
+
+<h1>Список поставок</h1>
+
+{% for supply in supplies %}
+    <h2>Поставка #{{ supply.id }} - Дата: {{ supply.delivery_date }} - Филиал: {{ supply.filial }}</h2>
+    <ul>
+        {% for item in supply.suppliesitems_set.all %}
+            <li>{{ item.product }} - Количество: {{ item.quantity }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+{% endfor %}
+
+</body>
+</html>

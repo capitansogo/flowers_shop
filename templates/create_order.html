@@ -1,0 +1,65 @@
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Создание поставки</title>
+
+</head>
+<body>
+<!-- create_supply.html -->
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Форма для создания поставки -->
+    {{ supplies_form.as_p }}
+
+    <!-- Формсет для товаров в поставке -->
+    {{ supplies_items_formset.management_form }}
+    <div id="supplies-items-formset">
+        {% for form in supplies_items_formset %}
+            <div class="form-row">
+                {{ form.as_table }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Кнопка для добавления новой формы -->
+    <button type="button" id="add-form">Добавить товар</button>
+
+    <input type="submit" value="Создать поставку">
+</form>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#add-form').click(function () {
+            // Находим контейнер для формсета
+            var formsetTable = $('#supplies-items-formset');
+
+            // Клонируем последнюю форму и обновляем номера полей
+            var newForm = formsetTable.find('.form-row:first').clone();
+            var totalForms = formsetTable.find('.form-row').length;
+
+            // Изменение атрибутов name и id для каждого элемента формы
+            newForm.find('input, select').each(function () {
+                var prefix = 'supplies_items';
+                var name = $(this).attr('name').replace(/-\d+-/g, '-' + totalForms + '-');
+                var id = 'id_' + name;
+                $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+                console.log($(this).attr('name'));
+            });
+
+            // Вставляем новую форму в формсет
+            formsetTable.append(newForm);
+
+            // Обновляем значение TOTAL_FORMS
+            $('#id_supplies_items-TOTAL_FORMS').val(totalForms + 1);
+            console.log($('#id_supplies_items-TOTAL_FORMS').val());
+        });
+    });
+</script>
+
+</body>
+</html>
