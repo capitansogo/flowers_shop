@@ -1,0 +1,25 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>Поставки</h2>
+
+        {% for delivery_date, supplies_list in supplies_group.items %}
+            <h2>{{ delivery_date }}</h2>
+            <div class="card-deck">
+                {% for supply in supplies_list %}
+                    <div class="card" style="margin-top: 5px;">
+                        <div class="card-body">
+                            <h5 class="card-text">Товар: {{ supply.suppliesitems_set.first.product.name }}</h5>
+                            <p class="card-text">Филиал: {{ supply.filial }}</p>
+                            <p class="card-text">Количество: {{ supply.suppliesitems_set.first.quantity }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

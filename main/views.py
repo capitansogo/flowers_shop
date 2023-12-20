@@ -146,6 +146,21 @@ def orders(request, pk):
         return render(request, 'orders.html', {'orders': orders, 'services': services})
 
 
+def all_orders(request):
+    orders = Product_order.objects.all()
+    services = Service_order.objects.all()
+    it_all = True
+    if len(orders) == 0 and len(services) == 0:
+        return render(request, 'orders.html', {'products_error': 'Нет заказов', 'services_error': 'Нет заказов'})
+    elif len(orders) == 0:
+        return render(request, 'orders.html', {'products_error': 'Нет заказов', 'services': services, 'it_all': it_all})
+    elif len(services) == 0:
+        return render(request, 'orders.html', {'orders': orders, 'services_error': 'Нет заказов', 'it_all': it_all})
+
+    else:
+        return render(request, 'orders.html', {'orders': orders, 'services': services, 'it_all': it_all})
+
+
 # создание поставки
 def create_supply(request, pk):
     if request.method == 'POST':

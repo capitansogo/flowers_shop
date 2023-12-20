@@ -74,7 +74,7 @@
                                         <button type="submit" class="btn btn-outline-success mt-2">Купить</button>
                                     </form>
 
-                                    {% if request.user.role.name == 'Менеджер' %}
+                                    {% if request.user.role.name == 'Управляющий' %}
                                         <a class="btn btn-outline-info mt-2 supply">Заказать</a>
                                     {% endif %}
                                 {% else %}
@@ -86,13 +86,13 @@
                                 <div class="alert alert-danger mt-2" role="alert">
                                     Товара нет в наличии
                                 </div>
-                                {% if request.user.role.name == 'Менеджер' %}
+                                {% if request.user.role.name == 'Управляющий' %}
                                     <a class="btn btn-outline-info mt-2 supply">Заказать</a>
                                 {% endif %}
 
                             {% endif %}
                             <div class="container supply_form" hidden="hidden">
-                                {% if request.user.role.name == 'Менеджер' %}
+                                {% if request.user.role.name == 'Управляющий' %}
                                     <form method="post" action="{% url 'create_supply' p.id %}">
                                         {% csrf_token %}
                                         <label for="product_count">Количество</label>

@@ -1,0 +1,90 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>Заказы товаров</h2>
+        {% if products_error %}
+            <div class="alert alert-info" role="alert">
+                {{ products_error }}
+            </div>
+        {% else %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Дата заявки</th>
+                    <th scope="col">Дата выполнения</th>
+                    <th scope="col">Товар</th>
+                    <th scope="col">Стоимость</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Филиал</th>
+                    {% if it_all %}
+                        <th scope="col">Клиент</th>
+                    {% endif %}
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <th scope="row">{{ order.id }}</th>
+                        <td>{{ order.registration_date }}</td>
+                        <td>{{ order.date_completion }}</td>
+                        <td>{{ order.product }}</td>
+                        <td>{{ order.cost }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.filial }}</td>
+                        {% if it_all %}
+                            <td>{{ order.client }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+
+        <h2>Заказы услуг</h2>
+        {% if services_error %}
+            <div class="alert alert-info" role="alert">
+                {{ services_error }}
+            </div>
+        {% else %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Дата заявки</th>
+                    <th scope="col">Дата исполнения</th>
+                    <th scope="col">Услуга</th>
+                    <th scope="col">Стоимость</th>
+                    <th scope="col">Филиал</th>
+                    {% if it_all %}
+                        <th scope="col">Клиент</th>
+                    {% endif %}
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for service in services %}
+                    <tr>
+                        <th scope="row">{{ service.id }}</th>
+                        <td>{{ service.registration_date }}</td>
+                        <td>{{ service.date_completion }}</td>
+                        <td>{{ service.service }}</td>
+                        <td>{{ service.cost }}</td>
+                        <td>{{ service.filial }}</td>
+                        {% if it_all %}
+                            <td>{{ service.client }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+    
