@@ -54,7 +54,7 @@ class Services(models.Model):
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
 
     def __str__(self):
-        return f'{self.name} {self.cost}'
+        return f'{self.name}'
 
     class Meta:
         verbose_name = 'Услуга'
@@ -101,7 +101,7 @@ class Products(models.Model):
     sheif_life = models.IntegerField(verbose_name='Срок годности', blank=True, null=True)
 
     def __str__(self):
-        return f'{self.name} {self.type_product}'
+        return f'{self.name}'
 
     class Meta:
         verbose_name = 'Товар'
@@ -147,6 +147,7 @@ class Product_order(models.Model):
         verbose_name_plural = 'Заказы на товары'
 
 
+
 # продажи
 class Sales(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE, verbose_name='Продукт', blank=True, null=True)
@@ -155,7 +156,7 @@ class Sales(models.Model):
     cost = models.FloatField(verbose_name='Стоимость', blank=True, null=True)
 
     def __str__(self):
-        return f'{self.product} {self.filial} {self.date} {self.quantity} {self.cost}'
+        return f'{self.product} {self.filial} {self.date} {self.cost}'
 
     class Meta:
         verbose_name = 'Продажа'
@@ -170,7 +171,7 @@ class Write_offs(models.Model):
     quantity = models.IntegerField(verbose_name='Количество', blank=True, null=True)
 
     def __str__(self):
-        return f'{self.product} {self.filial} {self.date} {self.quantity} {self.cost}'
+        return f'{self.product} {self.filial} {self.date} {self.quantity}'
 
     class Meta:
         verbose_name = 'Списание'

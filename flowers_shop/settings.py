@@ -24,7 +24,9 @@ SECRET_KEY = 'django-insecure-ax%m-!%ecj37ij-_=6i0$=*7kcrh&xayaf(y6!+)&11&v04ma3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = ['https://b1b4-138-197-84-249.ngrok-free.app', 'https://*.127.0.0.1']
 
 # Application definition
 
@@ -35,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'jquery',
-    'djangoformsetjs',
+    # 'jquery',
+    # 'djangoformsetjs',
     'main.apps.MainConfig',
 
 ]

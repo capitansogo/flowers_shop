@@ -8,6 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
@@ -16,24 +19,60 @@
             <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="{% url 'products' %}" class="nav-link">Товары</a></li>
             <li class="nav-item"><a href="{% url 'services' %}" class="nav-link">Услуги</a></li>
-            {% if request.user.role.name == 'Менеджер' and request.user.is_authenticated %}
-                <li class="nav-item"><a href="{% url 'filials' %}" class="nav-link">Филиалы</a></li>
-                <li class="nav-item"><a href="{% url 'sales' request.user.filial.id %}" class="nav-link">Продажи</a>
-                </li>
-                <li class="nav-item"><a href="{% url 'write_offs' request.user.filial.id %}"
-                                        class="nav-link">Списания</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Заказы</a>
+            {% if  request.user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'orders' request.user.id %}" class="nav-link">Заказы</a>
                 </li>
                 <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Выйти</a></li>
             {% endif %}
+            {% if request.user.role.name == 'Менеджер' and request.user.is_authenticated %}
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Для менеджера
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item"><a href="{% url 'sales' request.user.filial.id %}"
+                                                         class="nav-link">Продажи</a>
+                            </li>
+                            <li class="dropdown-item"><a href="{% url 'write_offs' request.user.filial.id %}"
+                                                         class="nav-link">Списания</a></li>
+                            <li class="dropdown-item"><a href="{% url 'supplies' request.user.filial.id %}"
+                                                         class="nav-link">Поставки</a>
+                            </li>
+                            <li class="dropdown-item"><a href="{% url 'all_sales' %}"
+                                                         class="nav-link">Продажи общие</a>
+                            </li>
+                            <li class="dropdown-item"><a href="{% url 'all_write_offs' %}"
+                                                         class="nav-link">Списания общие</a>
+                            </li>
+                            <li class="dropdown-item"><a href="{% url 'all_supplies' %}"
+                                                         class="nav-link">Поставки общие</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            {% endif %}
+
 
             {% if request.user.is_authenticated == False %}
                 <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Войти</a></li>
+                <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Зарегистрироваться</a></li>
+
             {% endif %}
         </ul>
     </header>
 </div>
 {% block content %}
 {% endblock %}
+
+<script>
+    $(document).ready(function () {
+        $(".supply").click(function () {
+            // Найти ближайшую карточку и отобразить форму только внутри неё
+            var card = $(this).closest('.card');
+            card.find(".supply_form").removeAttr("hidden");
+        });
+    });
+</script>
 </body>
 </html>

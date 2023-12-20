@@ -12,5 +12,10 @@ admin.site.register(Types_products)
 admin.site.register(Products)
 admin.site.register(Supplies)
 admin.site.register(SuppliesItems)
+admin.site.register(Write_offs)
+admin.site.register(Sales)
+admin.site.register(Product_order)
+
+
 
 
